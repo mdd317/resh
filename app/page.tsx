@@ -838,9 +838,6 @@ export default function HomePage() {
                   <Linkedin className="h-6 w-6" />
                 </Link>
                 <Link href="#" className="text-slate-400 hover:text-orange-600 transition-colors">
-                  <Twitter className="h-6 w-6" />
-                </Link>
-                <Link href="#" className="text-slate-400 hover:text-orange-600 transition-colors">
                   <Facebook className="h-6 w-6" />
                 </Link>
                 <Link href="#" className="text-slate-400 hover:text-orange-600 transition-colors">
