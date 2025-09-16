@@ -817,11 +817,11 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-8">
               <div className="flex items-center justify-center space-x-2">
                 <Mail className="h-5 w-5 text-orange-600" />
-                <span className="text-slate-600">kontakt@resh.requena.pl</span>
+                <span className="text-slate-600">michal.dobrzynski@requena.pl</span>
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Globe className="h-5 w-5 text-orange-600" />
-                <span className="text-slate-600">www.resh.requena.pl</span>
+                <span className="text-slate-600">+48 574 143 447</span>
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Globe className="h-5 w-5 text-orange-600" />
