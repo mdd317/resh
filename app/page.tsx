@@ -32,6 +32,18 @@ import Link from "next/link"
 export default function HomePage() {
   const [language, setLanguage] = useState<"en" | "pl">("en")
 
+  // === FORM STATE (NEW) ===
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [company, setCompany] = useState("")
+  const [category, setCategory] = useState<string | undefined>(undefined)
+  const [description, setDescription] = useState("")
+  const [consent, setConsent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [status, setStatus] = useState<null | { ok: boolean; msg: string }>(null)
+
+  const FORM_ENDPOINT = "https://formspree.io/f/xwpndprw"
+
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "pl" : "en")
   }
@@ -42,6 +54,62 @@ export default function HomePage() {
 
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  // === SUBMIT HANDLER (NEW) ===
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus(null)
+
+    if (!name || !email || !description || !consent) {
+      setStatus({
+        ok: false,
+        msg:
+          language === "en"
+            ? "Please fill required fields and accept consent."
+            : "Uzupełnij wymagane pola i zaznacz zgodę.",
+      })
+      return
+    }
+
+    setSending(true)
+    try {
+      const formData = new FormData()
+      // Formspree rozpoznaje standardowe klucze:
+      formData.append("name", name)
+      formData.append("email", email)
+      formData.append("company", company)
+      formData.append("category", category ?? "")
+      formData.append("message", description) // klucz 'message' jest czytelny w panelu
+      formData.append("consent", consent ? "yes" : "no")
+      // honeypot opcjonalnie: formData.append("website", "")
+
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      })
+
+      if (res.ok) {
+        setStatus({
+          ok: true,
+          msg: language === "en" ? "Message sent. Thank you!" : "Wiadomość wysłana. Dziękujemy!",
+        })
+        setName(""); setEmail(""); setCompany(""); setCategory(undefined); setDescription(""); setConsent(false)
+      } else {
+        const data = await res.json().catch(() => null)
+        setStatus({
+          ok: false,
+          msg:
+            data?.errors?.[0]?.message ??
+            (language === "en" ? "Something went wrong." : "Coś poszło nie tak."),
+        })
+      }
+    } catch {
+      setStatus({ ok: false, msg: language === "en" ? "Server error." : "Błąd serwera." })
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -649,7 +717,7 @@ export default function HomePage() {
 
             <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 text-center">
               <CardContent className="p-8">
-                <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-full flex itemscenter justify-center mx-auto mb-6">
                   <span className="text-white font-bold text-2xl">Ł</span>
                 </div>
                 <h3 className="font-bold text-xl mb-2 text-slate-800">Łukasz</h3>
@@ -706,7 +774,8 @@ export default function HomePage() {
 
           <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
             <CardContent className="p-8">
-              <form className="space-y-6">
+              {/* FORM WITH onSubmit (NEW) */}
+              <form className="space-y-6" onSubmit={onSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
@@ -714,8 +783,12 @@ export default function HomePage() {
                     </label>
                     <Input
                       id="name"
+                      name="name"
                       placeholder={language === "en" ? "Your name" : "Twoje imię"}
                       className="border-slate-300 focus:border-orange-500 focus:ring-orange-500"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
                     />
                   </div>
                   <div>
@@ -724,9 +797,13 @@ export default function HomePage() {
                     </label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="your@email.com"
                       className="border-slate-300 focus:border-orange-500 focus:ring-orange-500"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -736,15 +813,18 @@ export default function HomePage() {
                   </label>
                   <Input
                     id="company"
+                    name="company"
                     placeholder={language === "en" ? "Your company and industry" : "Twoja firma i branża"}
                     className="border-slate-300 focus:border-orange-500 focus:ring-orange-500"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-slate-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     {language === "en" ? "Contact Category" : "Kategoria kontaktu"}
                   </label>
-                  <Select>
+                  <Select value={category} onValueChange={setCategory}>
                     <SelectTrigger className="border-slate-300 focus:border-orange-500 focus:ring-orange-500">
                       <SelectValue placeholder={language === "en" ? "Select a category" : "Wybierz kategorię"} />
                     </SelectTrigger>
@@ -782,6 +862,7 @@ export default function HomePage() {
                   </label>
                   <Textarea
                     id="description"
+                    name="message" // klucz 'message' dla Formspree
                     placeholder={
                       language === "en"
                         ? "Tell us about your project requirements..."
@@ -789,11 +870,16 @@ export default function HomePage() {
                     }
                     rows={6}
                     className="border-slate-300 focus:border-orange-500 focus:ring-orange-500"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="consent"
+                    checked={consent}
+                    onCheckedChange={(v) => setConsent(Boolean(v))}
                     className="border-slate-300 data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600"
                   />
                   <label htmlFor="consent" className="text-sm text-slate-600">
@@ -802,11 +888,22 @@ export default function HomePage() {
                       : "Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z polityką prywatności."}
                   </label>
                 </div>
+
+                {status && (
+                  <p className={`text-sm ${status.ok ? "text-green-600" : "text-red-600"}`}>
+                    {status.msg}
+                  </p>
+                )}
+
                 <Button
                   size="lg"
+                  type="submit"
+                  disabled={sending}
                   className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white py-3"
                 >
-                  {language === "en" ? "Send Inquiry" : "Wyślij zapytanie"}
+                  {sending
+                    ? (language === "en" ? "Sending..." : "Wysyłanie...")
+                    : (language === "en" ? "Send Inquiry" : "Wyślij zapytanie")}
                 </Button>
               </form>
             </CardContent>
