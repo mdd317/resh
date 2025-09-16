@@ -834,14 +834,14 @@ export default function HomePage() {
                 {language === "en" ? "Stay up to date, follow us here:" : "Bądź na bieżąco, śledź nas tutaj:"}
               </p>
               <div className="flex justify-center space-x-6">
-                <Link href="#" className="text-slate-400 hover:text-orange-600 transition-colors">
+                <Link href="https://www.linkedin.com/company/requenash/" className="text-slate-400 hover:text-orange-600 transition-colors">
                   <Linkedin className="h-6 w-6" />
                 </Link>
-                <Link href="#" className="text-slate-400 hover:text-orange-600 transition-colors">
+{/*                 <Link href="#" className="text-slate-400 hover:text-orange-600 transition-colors">
                   <Facebook className="h-6 w-6" />
                 </Link>
                 <Link href="#" className="text-slate-400 hover:text-orange-600 transition-colors">
-                  <BookOpen className="h-6 w-6" />
+                  <BookOpen className="h-6 w-6" /> */}
                 </Link>
               </div>
             </div>
