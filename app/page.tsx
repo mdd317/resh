@@ -841,8 +841,8 @@ export default function HomePage() {
                   <Facebook className="h-6 w-6" />
                 </Link>
                 <Link href="#" className="text-slate-400 hover:text-orange-600 transition-colors">
-                  <BookOpen className="h-6 w-6" /> */}
-                </Link>
+                  <BookOpen className="h-6 w-6" /> 
+                </Link>*/}
               </div>
             </div>
           </div>
