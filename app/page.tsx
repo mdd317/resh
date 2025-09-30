@@ -726,8 +726,8 @@ export default function HomePage() {
                 </p>
                 <p className="text-slate-600">
                   {language === "en"
-                    ? "Ensuring fast, intuitive, and modern user experiences."
-                    : "Zapewnienie szybkich, intuicyjnych i nowoczesnych doświadczeń użytkownika."}
+                    ? "Focuses on architecting front-end solutions that are fundamentally geared towards delivering fast, intuitive, and truly modern user experiences."
+                    : "Skupia się na projektowaniu rozwiązań frontendowych, które są fundamentalnie nastawione na dostarczanie szybkich, intuicyjnych i rzeczywiście nowoczesnych doświadczeń użytkownika."}
                 </p>
               </CardContent>
             </Card>
