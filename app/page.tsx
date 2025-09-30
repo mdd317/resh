@@ -709,8 +709,8 @@ export default function HomePage() {
                 </p>
                 <p className="text-slate-600">
                   {language === "en"
-                    ? "Expert in integration and scalable systems based on Python, databases, and cloud systems."
-                    : "Ekspert w integracji i skalowalnych systemach opartych na Pythonie, bazach danych i systemach chmurowych."}
+                    ? "Expert in architecture and integration of complex systems, design of scalable solutions, and management of databases and cloud infrastructure."
+                    : "Ekspert w architekturze i integracji złożonych systemów, projektowaniu skalowalnych rozwiązań oraz zarządzaniu bazami danych i infrastrukturą chmurową."}
                 </p>
               </CardContent>
             </Card>
