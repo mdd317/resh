@@ -674,8 +674,8 @@ export default function HomePage() {
               asChild
               className="border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-3 bg-transparent"
             >
-              <Link href="https://www.elixaai.com" target="_blank" rel="noopener noreferrer">
-                {language === "en" ? "Visit ElixaAI" : "Odwiedź ElixaAI"}
+              <Link href="https://www.bantify.com" target="_blank" rel="noopener noreferrer">
+                {language === "en" ? "Visit Bantify" : "Odwiedź Bantify"}
                 <ExternalLink className="ml-2 h-5 w-5" />
               </Link>
             </Button>
