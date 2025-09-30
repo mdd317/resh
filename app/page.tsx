@@ -570,8 +570,8 @@ export default function HomePage() {
                 </h3>
                 <p className="text-slate-600">
                   {language === "en"
-                    ? "Same expertise that powers our proprietary ElixaAI Core application"
-                    : "Ta sama wiedza, która napędza naszą autorską aplikację ElixaAI Core"}
+                    ? "Successfully delivered and deployed verified applications for key industry enterprises."
+                    : "Z powodzeniem dostarczyliśmy i wdrożyliśmy sprawdzone aplikacje dla kluczowych przedsiębiorstw z branży."}
                 </p>
               </CardContent>
             </Card>
