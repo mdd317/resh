@@ -30,7 +30,7 @@ import {
 import Link from "next/link"
 
 export default function HomePage() {
-  const [language, setLanguage] = useState<"en" | "pl">("en")
+  const [language, setLanguage] = useState<"en" | "pl">("pl")
 
   // === FORM STATE (NEW) ===
   const [name, setName] = useState("")
