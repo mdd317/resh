@@ -674,7 +674,7 @@ export default function HomePage() {
               asChild
               className="border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-3 bg-transparent"
             >
-              <Link href="https://www.bantify.com" target="_blank" rel="noopener noreferrer">
+              <Link href="https://www.bantify.eu" target="_blank" rel="noopener noreferrer">
                 {language === "en" ? "Visit Bantify" : "Odwiedź Bantify"}
                 <ExternalLink className="ml-2 h-5 w-5" />
               </Link>
@@ -922,7 +922,7 @@ export default function HomePage() {
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Globe className="h-5 w-5 text-orange-600" />
-                <span className="text-slate-600">www.elixaai.com</span>
+                <span className="text-slate-600">www.bantify.eu</span>
               </div>
             </div>
 
