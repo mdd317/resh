@@ -5,7 +5,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'ReSH',
-  description: 'Created with v0',
+  description: 'Requena Software House',
   generator: 'v0.dev',
 }
 
